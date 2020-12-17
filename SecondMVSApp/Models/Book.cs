@@ -15,3 +15,4 @@ namespace SecondMVSApp.Models
         // цена
         public decimal Price { get; set; }
     }
+}

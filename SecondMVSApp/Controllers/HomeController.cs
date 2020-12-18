@@ -3,28 +3,43 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using SecondMVSApp.Models;
 
 namespace SecondMVSApp.Controllers
 {
     public class HomeController : Controller
     {
+        //создаем контекс данных
+        BookContext db = new BookContext();
         public ActionResult Index()
         {
+            // получаем все объекты (книги) из БД
+            IEnumerable<Book> books = db.Books;
+            // передаем все объекты в динамическое свойство Books в ViewBag
+            ViewBag.Books = books;
+            //возвращаем представление
             return View();
         }
-
-        public ActionResult About()
+        [HttpGet]
+        public ActionResult Buy(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.BookId = id;
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public string Buy(Purchase purchase)
         {
-            ViewBag.Message = "Your contact page.";
+            //указываем текущую дату
+            purchase.Date = DateTime.Now;
+            //добавляем данные в БД
+            db.Purchases.Add(purchase);
+            //сохраняем данные
+            db.SaveChanges();
+            //возвращаем сообщение
+            return ($"Спасибо {purchase.Person} за покупку!");
 
-            return View();
         }
+
     }
 }

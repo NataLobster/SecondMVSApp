@@ -12,7 +12,7 @@ namespace SecondMVSApp.Models
         public DbSet<Purchase> Purchases { get; set; }
     }
 
-    public class BookDBInitializer : DropCreateDatabaseAlways<BookContext>
+   public class BookDBInitializer : DropCreateDatabaseAlways<BookContext>
     {
         protected override void Seed(BookContext db)
         {
@@ -21,6 +21,6 @@ namespace SecondMVSApp.Models
             db.Books.Add(new Book { Name = "Три мушкетера", Author = "А.Дюма", Price = 25.10m });
 
             base.Seed(db);
-        }
-    }
+        } 
+    } 
 }
